@@ -24,8 +24,8 @@ export default {
   measurements: [
     'bicepsCircumference',
     'chestCircumference',
-    'hpsToHipsBack',
-    'naturalWaistToHip',
+    'hpsToWaistBack',
+    'waistToHips',
     'neckCircumference',
     'shoulderSlope',
     'shoulderToShoulder',
@@ -53,8 +53,8 @@ export default {
     shoulderSlopeReduction: 0,
 
     // Percentages
-    armholeDrop: { pct: 10, min: 1, max: 75 },
-    backlineBend: { pct: 50, min: 50, max: 100 },
+    armholeDrop: { pct: 10, min: 0, max: 75 },
+    backlineBend: { pct: 50, min: 25, max: 100 },
     chestEase: { pct: 8, min: 0, max: 20 },
     hipsEase: { pct: 8, min: 0, max: 20 },
     lengthBonus: { pct: 10, min: -20, max: 60 },

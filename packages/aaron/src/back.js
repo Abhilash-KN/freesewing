@@ -1,6 +1,6 @@
 import { dimensions } from './shared'
 
-export default function(part) {
+export default function (part) {
   let {
     store,
     sa,
@@ -13,8 +13,12 @@ export default function(part) {
     paperless,
     macro,
     utils,
-    units
+    units,
+    measurements
   } = part.shorthand()
+
+  // Lower back neck a bit
+  points.cbNeck.y = measurements.neckCircumference / 10
 
   points.strapLeftCp2 = utils.beamsIntersect(
     points.strapLeft,
@@ -23,7 +27,7 @@ export default function(part) {
     points.cbNeck.shift(0, 10)
   )
 
-  points.armholeCp2 = points.aaronArmhole.shiftFractionTowards(
+  points.armholeCp2 = points.armhole.shiftFractionTowards(
     points.armholeCorner,
     options.backlineBend
   )
@@ -32,14 +36,16 @@ export default function(part) {
     options.backlineBend
   )
 
+  points.anchor = points.cbNeck.clone()
+
   // Seamline
   paths.seam = new Path()
     .move(points.cbNeck)
     .line(points.cbHem)
     .line(points.hem)
-    .line(points.waist)
-    .join(paths.side)
+    .curve_(points.hipsCp2, points.armhole)
     .curve(points.armholeCp2, points.strapRightCp1, points.strapRight)
+    .line(points.strapLeft)
     .line(points.strapLeft)
     .curve(points.strapLeftCp2, points.cbNeck, points.cbNeck)
     .close()
@@ -54,10 +60,10 @@ export default function(part) {
         .length() + store.get('frontNeckOpeningLength')
     let armholeLength =
       new Path()
-        .move(points.aaronArmhole)
+        .move(points.armhole)
         .curve(points.armholeCp2, points.strapRightCp1, points.strapRight)
         .length() + store.get('frontArmholeLength')
-    points.bindinAnchor = new Point(points.aaronArmhole.x / 4, points.aaronArmhole.y)
+    points.bindinAnchor = new Point(points.armhole.x / 4, points.armhole.y)
       .attr('data-text', 'cutTwoStripsToFinishTheArmholes')
       .attr('data-text', ':\n')
       .attr('data-text', 'width')

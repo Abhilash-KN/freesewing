@@ -1,0 +1,51 @@
+.Landing {
+  background: url(../images/background.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.Landing-container {
+  width: 70%;
+  height: 80%;
+  margin: 0 auto;
+}
+
+.Landing-container h1,
+h2,
+h3 {
+  font-family: 'Roboto', sans-serif;
+  color: #f4f4f4;
+  font-weight: 700;
+}
+
+.Landing-container h1 {
+  font-size: 64px;
+}
+
+.Landing-container h2 {
+  margin-top: 40px;
+  padding-top: 64px;
+  margin-bottom: 8px;
+}
+
+.Landing-container h3 {
+  margin: 0 0 72px 0;
+}
+
+.Landing-container a {
+  background-color: #f4f4f4;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.Landing-container a:hover {
+  opacity: 0.8;
+}

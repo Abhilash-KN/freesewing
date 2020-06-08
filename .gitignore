@@ -60,3 +60,4 @@ packages/*/yarn.lock
 # dependencies
 node_modules
 *dist*
+package-lock.json

@@ -1,0 +1,21 @@
+.Patterns {
+  text-align: center;
+}
+
+.Patterns h1 {
+  margin: 32px 0;
+}
+
+.Patterns-container {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 14px;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 64px;
+}
+
+.Patterns-container a {
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { withBreasts } from '@freesewing/models'
 import Landing from './components/Landing'
 import Patterns from './components/Patterns'
 import Aaron from './components/Aaron'
@@ -35,6 +36,36 @@ import Waralee from './components/Waralee'
 import './App.css'
 
 class App extends Component {
+  // An example showing overriding of models size32 measurements values
+  componentDidMount() {
+    withBreasts.size32 = {
+      ankleCircumference: 177,
+      bicepsCircumference: 277,
+      chestCircumference: 877,
+      headCircumference: 477,
+      hipsCircumference: 777,
+      hipsToUpperLeg: 177,
+      hpsToBust: 277,
+      hpsToHipsBack: 577,
+      inseam: 677,
+      kneeCircumference: 377,
+      naturalWaist: 677,
+      naturalWaistToFloor: 1077,
+      naturalWaistToHip: 77,
+      naturalWaistToKnee: 577,
+      naturalWaistToSeat: 277,
+      neckCircumference: 277,
+      seatCircumference: 877,
+      seatDepth: 177,
+      shoulderSlope: 577,
+      shoulderToElbow: 377,
+      shoulderToShoulder: 377,
+      shoulderToWrist: 577,
+      upperLegCircumference: 577,
+      wristCircumference: 177
+    }
+  }
+
   render() {
     return (
       <Switch>

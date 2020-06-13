@@ -1,8 +1,5 @@
 import React from 'react'
-import freesewing from '@freesewing/core'
-import Workbench from '@freesewing/components/Workbench'
-import 'typeface-roboto-condensed'
-import '@freesewing/css-theme'
+import WorkbenchWrapper from './WorkbenchWrapper'
 import carlita from '@freesewing/carlita'
 
 function Carlita() {
@@ -12,7 +9,7 @@ function Carlita() {
   })
   let config = instance.config
 
-  return <Workbench freesewing={freesewing} Pattern={carlita} config={config} userLanguage="en" />
+  return <WorkbenchWrapper Pattern={carlita} config={config} userLanguage="en" />
 }
 
 export default Carlita

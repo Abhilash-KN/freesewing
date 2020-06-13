@@ -1,0 +1,19 @@
+.save-config {
+  position: absolute;
+  top: 0;
+  height: 64px;
+  line-height: 64px;
+  right: 25%;
+  z-index: 99;
+  font-family: 'Roboto Condensed', sans-serif;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+  background: none;
+  color: #f8f9fa;
+  transition: 0.2s ease;
+}
+.save-config:hover {
+  border-bottom: 4px solid #74c0fc;
+}

@@ -38,7 +38,12 @@ export const list = [
   'skirt',
   'bodiceblock',
   'dress',
-  'kurti'
+  'kurti',
+  'churidar',
+  'dhoti',
+  'suit',
+  'sharara',
+  'salvar'
 ]
 
 export const withoutBreasts = [
@@ -68,7 +73,12 @@ export const withoutBreasts = [
   'skirt',
   'bodiceblock',
   'dress',
-  'kurti'
+  'kurti',
+  'churidar',
+  'dhoti',
+  'suit',
+  'sharara',
+  'salvar'
 ]
 
 export const withBreasts = ['breanna', 'diana', 'cathrin', 'carlita', 'simone']

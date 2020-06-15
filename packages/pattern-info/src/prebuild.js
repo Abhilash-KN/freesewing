@@ -32,6 +32,11 @@ const skirt = require('@freesewing/skirt').config
 const bodiceblock = require('@freesewing/bodiceblock').config
 const dress = require('@freesewing/dress').config
 const kurti = require('@freesewing/kurti').config
+const churidar = require('@freesewing/churidar').config
+const dhoti = require('@freesewing/dhoti').config
+const sharara = require('@freesewing/sharara').config
+const suit = require('@freesewing/suit').config
+const salvar = require('@freesewing/suit').config
 
 const patterns = {
   aaron,
@@ -65,7 +70,12 @@ const patterns = {
   skirt,
   bodiceblock,
   dress,
-  kurti
+  kurti,
+  churidar,
+  dhoti,
+  suit,
+  salvar,
+  sharara
 }
 const patternOptions = (config) => {
   let all = []

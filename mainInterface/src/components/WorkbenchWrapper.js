@@ -36,7 +36,13 @@ class WorkbenchWrapper extends Component {
           Save Configuration
         </button>
         <Workbench freesewing={freesewing} Pattern={Pattern} config={config} userLanguage="en" />
-        {showDialog && <Dialog options={options} handleDialogDisplay={this.handleDialogDisplay} />}
+        {showDialog && (
+          <Dialog
+            options={options}
+            pattern={config.name}
+            handleDialogDisplay={this.handleDialogDisplay}
+          />
+        )}
       </div>
     )
   }

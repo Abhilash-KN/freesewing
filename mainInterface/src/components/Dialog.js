@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import './styles/Dialog.css'
 
 class Dialog extends Component {
   constructor(props) {
     super(props)
-    this.state = { name: '' }
+    this.state = {
+      name: '',
+      file: null
+    }
   }
 
-  handleChange = (event) => {
-    this.setState({ name: event.target.value })
+  handleChange = (e) => {
+    this.setState({ name: e.target.value })
+  }
+
+  handleImageChange = (e) => {
+    this.setState({ file: e.target.files[0] })
   }
 
   handleCancel = () => {
@@ -16,12 +24,26 @@ class Dialog extends Component {
   }
 
   handleSave = () => {
-    this.props.handleDialogDisplay(false)
-    const dataToSaveInDB = {
-      patternName: this.state.name,
-      options: this.props.options
+    const formData = new FormData()
+    formData.append('dressName', this.state.name)
+    formData.append('options', JSON.stringify(this.props.options))
+    formData.append('packageName', this.props.pattern)
+    formData.append('draftImage', this.state.file)
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
     }
-    console.log(dataToSaveInDB)
+    axios
+      .post('/save-configuration', formData, config)
+      .then((response) => {
+        alert('The file is successfully uploaded')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    this.props.handleDialogDisplay(false)
   }
 
   render() {
@@ -35,8 +57,12 @@ class Dialog extends Component {
     return (
       <div className="Dialog">
         <div className="Dialog-input">
-          <label>Pattern Name :</label>
+          <label>Pattern Name : </label>
           <input type="text" value={this.state.name} onChange={this.handleChange} />
+        </div>
+        <div className="Dialog-image">
+          <p>Upload Draft Image : </p>
+          <input type="file" onChange={this.handleImageChange} />
         </div>
         <div className="Dialog-list">
           <ul> {optionList} </ul>

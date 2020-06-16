@@ -55,3 +55,11 @@
 .Dialog-list span {
   margin: 0 8px;
 }
+
+.Dialog-image {
+  margin-top: 40px;
+}
+
+.Dialog-image p {
+  margin-bottom: 8px;
+}

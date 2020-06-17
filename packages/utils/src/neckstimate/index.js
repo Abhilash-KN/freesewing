@@ -6,6 +6,9 @@ import ratio from './ratio'
 const neckstimate = (neckCircumference = false, measurement = false, breasts = false) => {
   let data = breasts ? withBreasts : withoutBreasts
 
+  // Shoulder slope is in degrees now. Always return de default.
+  if (measurement === 'shoulderSlope') return withBreasts.shoulderSlope
+
   if (!neckCircumference)
     throw new Error('neckstimate() requires a neck circumference in mm as first parameter')
   if (!measurement) {

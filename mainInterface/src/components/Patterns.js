@@ -65,6 +65,12 @@ export default function Patterns() {
         <Link to="/patterns/cathrin">
           <Card name="Cathrin" text="Cathrin corset" image={cathrin} />
         </Link>
+        <Link to="/patterns/churidar">
+          <Card name="Churidar" text="Churidar Bottomwear" />
+        </Link>
+        <Link to="/patterns/dhoti">
+          <Card name="Dhoti" text="Dhoti Bottomwear" />
+        </Link>
         <Link to="/patterns/diana">
           <Card name="Diana" text="Diana top" image={diana} />
         </Link>
@@ -95,8 +101,14 @@ export default function Patterns() {
         <Link to="/patterns/penelope">
           <Card name="Penelope" text="Penelope pencil skirt" image={penelope} />
         </Link>
+        <Link to="/patterns/salvar">
+          <Card name="Salvar" text="Salvar Bottomwear" />
+        </Link>
         <Link to="/patterns/sandy">
           <Card name="Sandy" text="Sandy circle skirt" image={sandy} />
+        </Link>
+        <Link to="/patterns/sharara">
+          <Card name="Sharara" text="Sharara Bottomwear" />
         </Link>
         <Link to="/patterns/shin">
           <Card name="Shin" text="Shin swim trunks" image={shin} />
@@ -109,6 +121,9 @@ export default function Patterns() {
         </Link>
         <Link to="/patterns/skirt">
           <Card name="Skirt" text="Skirt" image={skirt} />
+        </Link>
+        <Link to="/patterns/suit">
+          <Card name="Suit" text="Suit Indianwear" />
         </Link>
         <Link to="/patterns/sven">
           <Card name="Sven" text="Sven sweatshirt" image={sven} />
@@ -128,6 +143,7 @@ export default function Patterns() {
         <Link to="/patterns/waralee">
           <Card name="Waralee" text="Waralee wrap pants" image={waralee} />
         </Link>
+       
       </div>
     </div>
   )

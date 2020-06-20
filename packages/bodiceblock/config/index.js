@@ -3,7 +3,7 @@ import { version } from "../package.json";
 // ?? 🤔 ?? --> https://en.freesewing.dev/packages/core/config
 
 export default {
-  name: "neck",
+  name: "bodice",
   version,
   design: "devanshkain",
   code: "devanshkain",

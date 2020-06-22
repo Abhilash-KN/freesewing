@@ -1,8 +1,5 @@
 import React from 'react'
-import freesewing from '@freesewing/core'
-import Workbench from '@freesewing/components/Workbench'
-import 'typeface-roboto-condensed'
-import '@freesewing/css-theme'
+import WorkbenchWrapper from './WorkbenchWrapper'
 import breanna from '@freesewing/breanna'
 
 function Breanna() {
@@ -12,7 +9,7 @@ function Breanna() {
   })
   let config = instance.config
 
-  return <Workbench freesewing={freesewing} Pattern={breanna} config={config} userLanguage="en" />
+  return <WorkbenchWrapper Pattern={breanna} config={config} userLanguage="en" />
 }
 
 export default Breanna

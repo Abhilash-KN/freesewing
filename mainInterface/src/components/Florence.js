@@ -1,8 +1,5 @@
 import React from 'react'
-import freesewing from '@freesewing/core'
-import Workbench from '@freesewing/components/Workbench'
-import 'typeface-roboto-condensed'
-import '@freesewing/css-theme'
+import WorkbenchWrapper from './WorkbenchWrapper'
 import florence from '@freesewing/florence'
 
 function Florence() {
@@ -12,7 +9,7 @@ function Florence() {
   })
   let config = instance.config
 
-  return <Workbench freesewing={freesewing} Pattern={florence} config={config} userLanguage="en" />
+  return <WorkbenchWrapper Pattern={florence} config={config} userLanguage="en" />
 }
 
 export default Florence

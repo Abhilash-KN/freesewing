@@ -1,0 +1,43 @@
+.OptionsTable {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #212529;
+}
+
+.OptionsTable th,
+td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #212529;
+}
+
+.OptionsTable th {
+  background-color: #212529;
+  color: #f8f9fa;
+  font-weight: 400;
+}
+
+.OptionsTable tr:hover {
+  background-color: #f5f5f5;
+}
+
+.OptionsTable button {
+  cursor: pointer;
+  background-color: #323232;
+  color: #f8f9fa;
+  border: 0px;
+  border-radius: 2px;
+  padding: 6px 12px;
+}
+.OptionsTable button:hover {
+  background-color: #212529;
+}
+
+.OptionsTable select {
+  background-color: #323232;
+  color: #f8f9fa;
+  border: 0px;
+  border-radius: 2px;
+  padding: 4px;
+  outline: none;
+}

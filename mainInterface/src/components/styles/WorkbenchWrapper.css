@@ -17,3 +17,7 @@
 .save-config:hover {
   border-bottom: 4px solid #74c0fc;
 }
+
+.options-table {
+  padding: 64px 128px;
+}

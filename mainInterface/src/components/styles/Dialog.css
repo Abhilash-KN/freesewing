@@ -2,7 +2,7 @@
   width: 400px;
   background-color: #212529;
   color: #f8f9fa;
-  position: fixed;
+  position: absolute;
   top: 20%;
   left: 50%;
   margin-left: -200px;
@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 48px;
 }
 
 .Dialog-btn {
@@ -38,22 +39,6 @@
   padding: 0 8px;
   margin-left: 24px;
   width: 40%;
-}
-
-.Dialog-list {
-  margin: 48px 0;
-}
-
-.Dialog-list ul {
-  padding-left: 18px;
-}
-
-.Dialog-list li {
-  margin-bottom: 8px;
-}
-
-.Dialog-list span {
-  margin: 0 8px;
 }
 
 .Dialog-image {

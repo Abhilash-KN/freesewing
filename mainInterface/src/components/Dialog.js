@@ -26,46 +26,36 @@ class Dialog extends Component {
   handleSave = () => {
     const formData = new FormData()
     formData.append('dressName', this.state.name)
-    formData.append('options', JSON.stringify(this.props.options))
     formData.append('packageName', this.props.pattern)
     formData.append('draftImage', this.state.file)
+    formData.append('isVerified', 0)
     const config = {
       headers: {
         'content-type': 'multipart/form-data'
       }
     }
     axios
-      .post('/save-configuration', formData, config)
+      .post('/dress-details', formData, config)
       .then((response) => {
         alert('The file is successfully uploaded')
+        this.props.handleDialogDisplay(false)
       })
       .catch((error) => {
         console.log(error)
+        this.props.handleDialogDisplay(false)
       })
-
-    this.props.handleDialogDisplay(false)
   }
 
   render() {
-    const { options } = this.props
-    const optionList = Object.entries(options).map(([key, value]) => (
-      <li>
-        <span>{key}</span> : <span>{value}</span>
-      </li>
-    ))
-
     return (
       <div className="Dialog">
         <div className="Dialog-input">
-          <label>Pattern Name : </label>
+          <label>Dress Name : </label>
           <input type="text" value={this.state.name} onChange={this.handleChange} />
         </div>
         <div className="Dialog-image">
           <p>Upload Draft Image : </p>
           <input type="file" onChange={this.handleImageChange} />
-        </div>
-        <div className="Dialog-list">
-          <ul> {optionList} </ul>
         </div>
         <div className="Dialog-btn-container">
           <button className="Dialog-btn" onClick={this.handleCancel}>

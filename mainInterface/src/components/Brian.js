@@ -1,8 +1,5 @@
 import React from 'react'
-import freesewing from '@freesewing/core'
-import Workbench from '@freesewing/components/Workbench'
-import 'typeface-roboto-condensed'
-import '@freesewing/css-theme'
+import WorkbenchWrapper from './WorkbenchWrapper'
 import brian from '@freesewing/brian'
 
 function Brian() {
@@ -12,7 +9,7 @@ function Brian() {
   })
   let config = instance.config
 
-  return <Workbench freesewing={freesewing} Pattern={brian} config={config} userLanguage="en" />
+  return <WorkbenchWrapper Pattern={brian} config={config} userLanguage="en" />
 }
 
 export default Brian

@@ -33,6 +33,11 @@ import Theo from './components/Theo'
 import Trayvon from './components/Trayvon'
 import Wahid from './components/Wahid'
 import Waralee from './components/Waralee'
+import Churidar from './components/Churidar'
+import Dhoti from './components/Dhoti'
+import Suit from './components/Suit'
+import Salvar from './components/Salvar'
+import Sharara from './components/Sharara'
 import './App.css'
 
 class App extends Component {
@@ -101,6 +106,11 @@ class App extends Component {
         <Route exact path="/patterns/trayvon" component={Trayvon} />
         <Route exact path="/patterns/wahid" component={Wahid} />
         <Route exact path="/patterns/waralee" component={Waralee} />
+        <Route exact path="/patterns/suit" component={Suit} />
+        <Route exact path="/patterns/salvar" component={Salvar} />
+        <Route exact path="/patterns/sharara" component={Sharara} />
+        <Route exact path="/patterns/churidar" component={Churidar} />
+        <Route exact path="/patterns/dhoti" component={Dhoti} />
       </Switch>
     )
   }

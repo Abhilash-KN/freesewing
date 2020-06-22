@@ -3,10 +3,10 @@ import { version } from "../package.json";
 // ?? 🤔 ?? --> https://en.freesewing.dev/packages/core/config
 
 export default {
-  name: "dress",
+  name: "kurti",
   version,
-  design: "Roopin619",
-  code: "Roopin619",
+  design: "devanshkain",
+  code: "devanshkain",
   department: "womenswear",
   type: "pattern",
   difficulty: 3,

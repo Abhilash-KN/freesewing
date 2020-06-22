@@ -1,8 +1,5 @@
 import React from 'react'
-import freesewing from '@freesewing/core'
-import Workbench from '@freesewing/components/Workbench'
-import 'typeface-roboto-condensed'
-import '@freesewing/css-theme'
+import WorkbenchWrapper from './WorkbenchWrapper'
 import aaron from '@freesewing/aaron'
 
 function Aaron() {
@@ -12,7 +9,7 @@ function Aaron() {
   })
   let config = instance.config
 
-  return <Workbench freesewing={freesewing} Pattern={aaron} config={config} userLanguage="en" />
+  return <WorkbenchWrapper Pattern={aaron} config={config} userLanguage="en" />
 }
 
 export default Aaron

@@ -1,7 +1,7 @@
 {
   "name": "@freesewing/bodiceblock",
   "version": "2.6.0-rc.0",
-  "description": "A FreeSewing pattern for a A-shirt or tank top",
+  "description": "A FreeSewing pattern for a bodice top",
   "author": "devanshkain> (https://github.com/devanshkain)",
   "homepage": "https://freesewing.org/",
   "repository": "github:saurabhank/freesewing",
@@ -18,7 +18,8 @@
     "parametric design",
     "pattern",
     "sewing",
-    "sewing pattern"
+    "sewing pattern",
+    "bodice"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { uploadDressDetails } from '../services/apiCalls'
 import './styles/Dialog.css'
 
 class Dialog extends Component {
@@ -28,22 +28,7 @@ class Dialog extends Component {
     formData.append('dressName', this.state.name)
     formData.append('packageName', this.props.pattern)
     formData.append('draftImage', this.state.file)
-    formData.append('isVerified', 0)
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    }
-    axios
-      .post('/dress-details', formData, config)
-      .then((response) => {
-        alert('The file is successfully uploaded')
-        this.props.handleDialogDisplay(false)
-      })
-      .catch((error) => {
-        console.log(error)
-        this.props.handleDialogDisplay(false)
-      })
+    uploadDressDetails(formData, this.props.handleDialogDisplay)
   }
 
   render() {

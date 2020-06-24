@@ -5,8 +5,8 @@ import 'typeface-roboto-condensed'
 import '@freesewing/css-theme'
 import Dialog from './Dialog'
 import OptionsTable from './OptionsTable'
+import { fetchDressDetails } from '../services/apiCalls'
 import './styles/WorkbenchWrapper.css'
-import axios from 'axios'
 
 class WorkbenchWrapper extends Component {
   constructor(props) {
@@ -18,25 +18,10 @@ class WorkbenchWrapper extends Component {
     }
   }
 
-  fetchDressDetails = () => {
-    axios
-      .get('/dress-details', {
-        params: {
-          package: this.props.config.name
-        }
-      })
-      .then((response) => {
-        if (response.data.success === true) {
-          this.setState({ data: response.data.msg })
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
   componentDidMount() {
-    this.fetchDressDetails()
+    fetchDressDetails(this.props.config.name, (response) => {
+      this.setState({ data: response.data.msg })
+    })
   }
 
   handleClick = () => {
@@ -45,7 +30,9 @@ class WorkbenchWrapper extends Component {
 
   handleDialogDisplay = (bool) => {
     this.setState({ showDialog: bool })
-    this.fetchDressDetails()
+    fetchDressDetails(this.props.config.name, (response) => {
+      this.setState({ data: response.data.msg })
+    })
   }
 
   updateConfig = (optionsData) => {
@@ -74,6 +61,7 @@ class WorkbenchWrapper extends Component {
   render() {
     const { Pattern } = this.props
     const { showDialog, data, config } = this.state
+    const showTable = data.some((row) => row.isActive === 1)
     return (
       <div>
         <button onClick={this.handleClick} className="save-config">
@@ -83,13 +71,17 @@ class WorkbenchWrapper extends Component {
         {showDialog && (
           <Dialog pattern={config.name} handleDialogDisplay={this.handleDialogDisplay} />
         )}
-        {data.length > 0 && (
+        {data.length > 0 && showTable && (
           <div className="options-table">
             <OptionsTable
               data={data}
               package={config.name}
               updateConfig={this.updateConfig}
-              refreshDressDetails={this.fetchDressDetails}
+              refreshDressDetails={() =>
+                fetchDressDetails(config.name, (response) => {
+                  this.setState({ data: response.data.msg })
+                })
+              }
             />
           </div>
         )}

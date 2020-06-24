@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { uploadOptionConfigs, updateDressDetails, updateDraftImage } from '../services/apiCalls'
 import ImageDialog from './ImageDialog'
 import './styles/OptionsTable.css'
 
@@ -8,7 +8,9 @@ export default class OptionsTable extends Component {
     super(props)
     this.state = {
       showImageDiv: false,
+      file: null,
       clickedButtonId: '',
+      showUpdateImageDialog: false,
       selectValue: this.getSelectValueObj()
     }
   }
@@ -29,6 +31,7 @@ export default class OptionsTable extends Component {
       refactoredData[row.dressName]['draftImage'] = row.draftImage
       refactoredData[row.dressName]['dressId'] = row.id
       refactoredData[row.dressName]['isVerified'] = row.isVerified
+      refactoredData[row.dressName]['isActive'] = row.isActive
     })
     return refactoredData
   }
@@ -55,93 +58,130 @@ export default class OptionsTable extends Component {
     })
   }
 
+  updateImage = (bool) => {
+    this.setState({ showUpdateImageDialog: bool })
+  }
+
+  handleImageChange = (e) => {
+    this.setState({ file: e.target.files[0] })
+  }
+
+  updatedImageUpload = (e) => {
+    const formData = new FormData()
+    formData.append('dressName', e.target.id)
+    formData.append('newDraftImage', this.state.file)
+    updateDraftImage(formData, this.props.refreshDressDetails)
+    this.updateImage(false)
+  }
+
   handleSave = (e) => {
     const gist = JSON.parse(localStorage.getItem('fs_gist'))
     const options = gist.settings.options
 
-    // Object.entries(options).
-    // console.log(JSON.stringify(options))
-    // console.log(e.target.id);
     if (options) {
       // saving the current option configurations in localStorage
       localStorage.setItem(`fs_${this.props.package}-options`, `${JSON.stringify(options)}`)
 
       // saving the current option configurations in database
-      axios
-        .post('/option-configs', {
-          dressId: e.target.id,
-          options: JSON.stringify(options)
-        })
-        .then((response) => {
-          alert('Option configurations successfully saved in the database.')
-          this.props.refreshDressDetails()
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      const data = {
+        dressId: e.target.id,
+        options: JSON.stringify(options)
+      }
+      uploadOptionConfigs(data, this.props.refreshDressDetails)
     }
   }
 
   handleSet = (e) => {
     const optionsData = this.refactorData(this.props.data)[e.target.id].options
-    this.props.updateConfig(optionsData)
+    if (!optionsData.hasOwnProperty('null')) {
+      this.props.updateConfig(optionsData)
+    }
   }
 
   handleChange = (e) => {
     const newSelectValue = this.state.selectValue
     newSelectValue[e.target.id] = e.target.value === '1' ? 1 : 0
     this.setState({ selectValue: newSelectValue })
+    const data = {
+      dressName: e.target.id,
+      changes: JSON.stringify({ isVerified: e.target.value === '1' ? 1 : 0 })
+    }
+    updateDressDetails(data, this.props.refreshDressDetails)
+  }
 
-    axios
-      .patch('/dress-details', {
-        dressName: e.target.id,
-        changes: JSON.stringify({ isVerified: e.target.value === '1' ? 1 : 0 })
-      })
-      .then((response) => {
-        alert(`Dress status successfully changed in the database.`)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  handleDelete = (e) => {
+    const data = {
+      dressName: e.target.id,
+      changes: JSON.stringify({ isActive: 0 })
+    }
+    updateDressDetails(data, this.props.refreshDressDetails)
   }
 
   render() {
-    const { showImageDiv, clickedButtonId, selectValue } = this.state
+    const { showImageDiv, clickedButtonId, selectValue, showUpdateImageDialog } = this.state
     const refactoredData = this.refactorData(this.props.data)
-    const rows = Object.entries(refactoredData).map(([key, value]) => (
-      <tr key={value.dressId}>
-        <td>{key}</td>
-        <td>
-          {showImageDiv && clickedButtonId === key && <ImageDialog imageName={value.draftImage} />}
+    const rows = Object.entries(refactoredData).map(
+      ([key, value]) =>
+        value.isActive === 1 && (
+          <tr key={value.dressId}>
+            <td>{key}</td>
+            <td>
+              {showImageDiv && clickedButtonId === key && !showUpdateImageDialog && (
+                <ImageDialog imageName={value.draftImage} />
+              )}
 
-          {clickedButtonId !== key && (
-            <button id={key} onClick={this.openImage}>
-              View image
-            </button>
-          )}
+              {showImageDiv && clickedButtonId === key && showUpdateImageDialog && (
+                <div className="update-image">
+                  <p>Upload new image : </p>
+                  <input type="file" onChange={this.handleImageChange} />
+                  <div className="update-image-btn-container">
+                    <button onClick={() => this.updateImage(false)} className="update-image-btn">
+                      CANCEL
+                    </button>
+                    <button id={key} onClick={this.updatedImageUpload} className="update-image-btn">
+                      UPLOAD
+                    </button>
+                  </div>
+                </div>
+              )}
 
-          {showImageDiv && clickedButtonId === key && (
-            <button onClick={this.closeImage}>Close</button>
-          )}
-        </td>
-        <td>
-          <button id={key} onClick={this.handleSet}>
-            SET
-          </button>
-        </td>
-        <td>
-          <button id={value.dressId} onClick={this.handleSave}>
-            SAVE
-          </button>
-        </td>
-        <td>
-          <select id={key} value={selectValue[key]} onChange={this.handleChange}>
-            <option value={0}>Under Review</option>
-            <option value={1}>Verified</option>
-          </select>
-        </td>
-      </tr>
-    ))
+              {clickedButtonId !== key && (
+                <button id={key} onClick={this.openImage}>
+                  View image
+                </button>
+              )}
+
+              {showImageDiv && clickedButtonId === key && (
+                <div>
+                  <button onClick={this.closeImage}>Close image</button>
+                  <button onClick={() => this.updateImage(true)}>Update image</button>
+                </div>
+              )}
+            </td>
+            <td>
+              <button id={key} onClick={this.handleSet}>
+                SET
+              </button>
+            </td>
+            <td>
+              <button id={value.dressId} onClick={this.handleSave}>
+                SAVE
+              </button>
+            </td>
+            <td>
+              <select id={key} value={selectValue[key]} onChange={this.handleChange}>
+                <option value={0}>Under Review</option>
+                <option value={1}>Verified</option>
+              </select>
+            </td>
+            <td>
+              <button id={key} onClick={this.handleDelete}>
+                DELETE
+              </button>
+            </td>
+          </tr>
+        )
+    )
     return (
       <table className="OptionsTable">
         <thead>
@@ -151,6 +191,7 @@ export default class OptionsTable extends Component {
             <th>Set Configuration</th>
             <th>Save Configuration</th>
             <th>Dress Status</th>
+            <th>Delete Dress</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

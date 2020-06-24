@@ -26,8 +26,10 @@ td {
   background-color: #323232;
   color: #f8f9fa;
   border: 0px;
+  outline: none;
   border-radius: 2px;
   padding: 6px 12px;
+  margin: 0px 16px;
 }
 .OptionsTable button:hover {
   background-color: #212529;
@@ -40,4 +42,41 @@ td {
   border-radius: 2px;
   padding: 4px;
   outline: none;
+}
+
+.update-image {
+  text-align: left;
+  background-color: #323232;
+  color: #f8f9fa;
+  border-radius: 2px;
+  padding: 4px 32px;
+  width: 60%;
+  margin: 4px auto 16px auto;
+}
+
+.update-image p {
+  margin: 8px 0px;
+}
+
+button.update-image-btn {
+  background-color: #f4f4f4;
+  border: none;
+  outline: none;
+  color: #323232;
+  font-weight: 500;
+  padding: 4px 10px;
+  margin: 16px 0px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+button.update-image-btn:hover {
+  background-color: #f4f4f4;
+  opacity: 0.8;
+}
+
+.update-image-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

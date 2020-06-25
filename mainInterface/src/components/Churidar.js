@@ -1,8 +1,5 @@
 import React from 'react'
-import freesewing from '@freesewing/core'
-import Workbench from '@freesewing/components/Workbench'
-import 'typeface-roboto-condensed'
-import '@freesewing/css-theme'
+import WorkbenchWrapper from './WorkbenchWrapper'
 import churidar from '@freesewing/churidar'
 
 function Churidar() {
@@ -12,7 +9,7 @@ function Churidar() {
   })
   let config = instance.config
 
-  return <Workbench freesewing={freesewing} Pattern={churidar} config={config} userLanguage="en" />
+  return <WorkbenchWrapper Pattern={churidar} config={config} userLanguage="en" />
 }
 
 export default Churidar

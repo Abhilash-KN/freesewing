@@ -1,8 +1,5 @@
 import React from 'react'
-import freesewing from '@freesewing/core'
-import Workbench from '@freesewing/components/Workbench'
-import 'typeface-roboto-condensed'
-import '@freesewing/css-theme'
+import WorkbenchWrapper from './WorkbenchWrapper'
 import sharara from '@freesewing/sharara'
 
 function Sharara() {
@@ -12,7 +9,7 @@ function Sharara() {
   })
   let config = instance.config
 
-  return <Workbench freesewing={freesewing} Pattern={sharara} config={config} userLanguage="en" />
+  return <WorkbenchWrapper Pattern={sharara} config={config} userLanguage="en" />
 }
 
 export default Sharara

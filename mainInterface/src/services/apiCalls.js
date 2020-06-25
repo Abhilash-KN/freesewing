@@ -54,13 +54,8 @@ const fetchDressDetails = (packageName, callback) => {
 }
 
 const updateDressDetails = (data, refreshDressDetails) => {
-  const config = {
-    headers: {
-      'content-type': 'multipart/form-data'
-    }
-  }
   axios
-    .patch('/dress-details', data, config)
+    .patch('/dress-details', data)
     .then((response) => {
       if (response.data.success === true) {
         alert(`Dress details successfully updated in the database.`)

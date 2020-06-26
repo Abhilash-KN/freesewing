@@ -18,6 +18,7 @@ const uploadDressDetails = (data, handleDialogDisplay) => {
     })
     .catch((error) => {
       console.log(error)
+      alert('Failed to upload the file!')
       handleDialogDisplay(false)
     })
 }
@@ -29,10 +30,13 @@ const uploadOptionConfigs = (data, refreshDressDetails) => {
       if (response.data.success === true) {
         alert('Option configurations successfully saved in the database.')
         refreshDressDetails()
+      } else {
+        alert(response.data.msg)
       }
     })
     .catch((error) => {
       console.log(error)
+      alert('Failed to save the option configurations in the database!')
     })
 }
 
@@ -60,10 +64,13 @@ const updateDressDetails = (data, refreshDressDetails) => {
       if (response.data.success === true) {
         alert(`Dress details successfully updated in the database.`)
         refreshDressDetails()
+      } else {
+        alert(response.data.msg)
       }
     })
     .catch((error) => {
       console.log(error)
+      alert('Failed to update the dress details!')
     })
 }
 
@@ -85,6 +92,7 @@ const updateDraftImage = (data, refreshDressDetails) => {
     })
     .catch((error) => {
       console.log(error)
+      alert('Failed to update the draft image!')
     })
 }
 

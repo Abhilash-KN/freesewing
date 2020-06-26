@@ -16,12 +16,14 @@ class WorkbenchWrapper extends Component {
       data: [],
       config: this.props.config
     }
+    this.defaultConfig = {}
   }
 
   componentDidMount() {
     fetchDressDetails(this.props.config.name, (response) => {
       this.setState({ data: response.data.msg })
     })
+    this.defaultConfig = this.state.config
   }
 
   handleClick = () => {
@@ -36,29 +38,67 @@ class WorkbenchWrapper extends Component {
   }
 
   updateConfig = (optionsData) => {
-    const newConfig = this.state.config
+    this.setState({ config: this.defaultConfig })
+    const { config } = this.state
+    const newOptions = {}
     Object.entries(optionsData).forEach(([key, value]) => {
-      if (newConfig.options[key].hasOwnProperty('dflt')) {
-        newConfig.options[key].dflt = value
-      } else if (typeof newConfig.options[key] === 'number') {
-        newConfig.options[key] = value
-      } else if (newConfig.options[key].hasOwnProperty('bool')) {
-        newConfig.options[key].bool = value === 'true' ? true : false
-      } else if (newConfig.options[key].hasOwnProperty('pct')) {
-        newConfig.options[key].pct = value
-      } else if (newConfig.options[key].hasOwnProperty('mm')) {
-        newConfig.options[key].mm = value
-      } else if (newConfig.options[key].hasOwnProperty('deg')) {
-        newConfig.options[key].deg = value
+      if (config.options[key].hasOwnProperty('dflt')) {
+        newOptions[key] = {
+          dflt: value,
+          list: [...config.options[key].list]
+        }
+      } else if (typeof config.options[key] === 'number') {
+        newOptions[key] = value
+      } else if (config.options[key].hasOwnProperty('bool')) {
+        newOptions[key] = { bool: value === 'true' ? true : false }
+      } else if (config.options[key].hasOwnProperty('pct')) {
+        newOptions[key] = {
+          pct: parseFloat(value) * 100,
+          min: config.options[key].min,
+          max: config.options[key].max
+        }
+      } else if (config.options[key].hasOwnProperty('mm')) {
+        newOptions[key] = {
+          mm: value,
+          min: config.options[key].min,
+          max: config.options[key].max
+        }
+      } else if (config.options[key].hasOwnProperty('deg')) {
+        newOptions[key] = {
+          deg: value,
+          min: config.options[key].min,
+          max: config.options[key].max
+        }
       } else {
-        newConfig.options[key].count = value
+        newOptions[key] = {
+          count: value,
+          min: config.options[key].min,
+          max: config.options[key].max
+        }
       }
     })
 
-    this.setState({ config: newConfig })
+    this.setState((prevSt) => ({
+      ...prevSt,
+      config: {
+        ...prevSt.config,
+        options: {
+          ...prevSt.config.options,
+          ...newOptions
+        }
+      }
+    }))
+  }
+
+  handleReset = () => {
+    const localGist = JSON.parse(localStorage.getItem('fs_gist'))
+    delete localGist.settings.options
+    localStorage.setItem('fs_gist', JSON.stringify(localGist))
+    this.setState({ config: this.defaultConfig })
   }
 
   render() {
+    console.log('rrrrrrrr')
     const { Pattern } = this.props
     const { showDialog, data, config } = this.state
     const showTable = data.some((row) => row.isActive === 1)
@@ -66,6 +106,9 @@ class WorkbenchWrapper extends Component {
       <div>
         <button onClick={this.handleClick} className="save-config">
           Add Apparel
+        </button>
+        <button onClick={this.handleReset} className="reset-config">
+          RESET
         </button>
         <Workbench freesewing={freesewing} Pattern={Pattern} config={config} userLanguage="en" />
         {showDialog && (

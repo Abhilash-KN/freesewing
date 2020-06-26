@@ -80,7 +80,7 @@ export default class OptionsTable extends Component {
 
     if (options) {
       // saving the current option configurations in localStorage
-      localStorage.setItem(`fs_${this.props.package}-options`, `${JSON.stringify(options)}`)
+      // localStorage.setItem(`fs_${this.props.package}-options`, `${JSON.stringify(options)}`)
 
       // saving the current option configurations in database
       const data = {

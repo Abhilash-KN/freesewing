@@ -24,6 +24,7 @@ const simone = require('@freesewing/simone').config
 const sven = require('@freesewing/sven').config
 const tamiko = require('@freesewing/tamiko').config
 const theo = require('@freesewing/theo').config
+const titan = require('@freesewing/titan').config
 const trayvon = require('@freesewing/trayvon').config
 const wahid = require('@freesewing/wahid').config
 const waralee = require('@freesewing/waralee').config
@@ -63,6 +64,7 @@ const patterns = {
   sven,
   tamiko,
   theo,
+  titan,
   trayvon,
   wahid,
   waralee,

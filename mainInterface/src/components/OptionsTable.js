@@ -79,9 +79,6 @@ export default class OptionsTable extends Component {
     const options = gist.settings.options
 
     if (options) {
-      // saving the current option configurations in localStorage
-      // localStorage.setItem(`fs_${this.props.package}-options`, `${JSON.stringify(options)}`)
-
       // saving the current option configurations in database
       const data = {
         dressId: e.target.id,
@@ -94,7 +91,10 @@ export default class OptionsTable extends Component {
   handleSet = (e) => {
     const optionsData = this.refactorData(this.props.data)[e.target.id].options
     if (!optionsData.hasOwnProperty('null')) {
-      this.props.updateConfig(optionsData)
+      const localGist = JSON.parse(localStorage.getItem('fs_gist'))
+      localGist.settings.options = optionsData
+      localStorage.setItem('fs_gist', JSON.stringify(localGist))
+      this.props.updateConfig(optionsData, localGist)
     }
   }
 

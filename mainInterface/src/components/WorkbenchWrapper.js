@@ -14,9 +14,15 @@ class WorkbenchWrapper extends Component {
     this.state = {
       showDialog: false,
       data: [],
-      config: this.props.config
+      config: this.props.config,
+      gist: this.getGist()
     }
     this.defaultConfig = {}
+  }
+
+  getGist = () => {
+    const localGist = JSON.parse(localStorage.getItem('fs_gist'))
+    return localGist
   }
 
   componentDidMount() {
@@ -37,7 +43,7 @@ class WorkbenchWrapper extends Component {
     })
   }
 
-  updateConfig = (optionsData) => {
+  updateConfig = (optionsData, gist) => {
     this.setState({ config: this.defaultConfig })
     const { config } = this.state
     const newOptions = {}
@@ -80,6 +86,7 @@ class WorkbenchWrapper extends Component {
 
     this.setState((prevSt) => ({
       ...prevSt,
+      gist: { ...gist },
       config: {
         ...prevSt.config,
         options: {
@@ -94,13 +101,12 @@ class WorkbenchWrapper extends Component {
     const localGist = JSON.parse(localStorage.getItem('fs_gist'))
     delete localGist.settings.options
     localStorage.setItem('fs_gist', JSON.stringify(localGist))
-    this.setState({ config: this.defaultConfig })
+    this.setState({ config: this.defaultConfig, gist: localGist })
   }
 
   render() {
-    console.log('rrrrrrrr')
     const { Pattern } = this.props
-    const { showDialog, data, config } = this.state
+    const { showDialog, data, config, gist } = this.state
     const showTable = data.some((row) => row.isActive === 1)
     return (
       <div>
@@ -110,7 +116,13 @@ class WorkbenchWrapper extends Component {
         <button onClick={this.handleReset} className="reset-config">
           RESET
         </button>
-        <Workbench freesewing={freesewing} Pattern={Pattern} config={config} userLanguage="en" />
+        <Workbench
+          freesewing={freesewing}
+          Pattern={Pattern}
+          gist={gist}
+          config={config}
+          userLanguage="en"
+        />
         {showDialog && (
           <Dialog pattern={config.name} handleDialogDisplay={this.handleDialogDisplay} />
         )}

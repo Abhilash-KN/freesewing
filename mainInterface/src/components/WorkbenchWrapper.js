@@ -108,40 +108,71 @@ class WorkbenchWrapper extends Component {
     const { Pattern } = this.props
     const { showDialog, data, config, gist } = this.state
     const showTable = data.some((row) => row.isActive === 1)
-    return (
-      <div>
-        <button onClick={this.handleClick} className="save-config">
-          Add Apparel
-        </button>
-        <button onClick={this.handleReset} className="reset-config">
-          RESET
-        </button>
-        <Workbench
-          freesewing={freesewing}
-          Pattern={Pattern}
-          gist={gist}
-          config={config}
-          userLanguage="en"
-        />
-        {showDialog && (
-          <Dialog pattern={config.name} handleDialogDisplay={this.handleDialogDisplay} />
-        )}
-        {data.length > 0 && showTable && (
-          <div className="options-table">
-            <OptionsTable
-              data={data}
-              package={config.name}
-              updateConfig={this.updateConfig}
-              refreshDressDetails={() =>
-                fetchDressDetails(config.name, (response) => {
-                  this.setState({ data: response.data.msg })
-                })
-              }
-            />
-          </div>
-        )}
-      </div>
-    )
+    if (gist) {
+      return (
+        <div>
+          <button onClick={this.handleClick} className="save-config">
+            Add Apparel
+          </button>
+          <button onClick={this.handleReset} className="reset-config">
+            RESET
+          </button>
+          <Workbench
+            freesewing={freesewing}
+            Pattern={Pattern}
+            gist={gist}
+            config={config}
+            userLanguage="en"
+          />
+          {showDialog && (
+            <Dialog pattern={config.name} handleDialogDisplay={this.handleDialogDisplay} />
+          )}
+          {data.length > 0 && showTable && (
+            <div className="options-table">
+              <OptionsTable
+                data={data}
+                package={config.name}
+                updateConfig={this.updateConfig}
+                refreshDressDetails={() =>
+                  fetchDressDetails(config.name, (response) => {
+                    this.setState({ data: response.data.msg })
+                  })
+                }
+              />
+            </div>
+          )}
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <button onClick={this.handleClick} className="save-config">
+            Add Apparel
+          </button>
+          <button onClick={this.handleReset} className="reset-config">
+            RESET
+          </button>
+          <Workbench freesewing={freesewing} Pattern={Pattern} config={config} userLanguage="en" />
+          {showDialog && (
+            <Dialog pattern={config.name} handleDialogDisplay={this.handleDialogDisplay} />
+          )}
+          {data.length > 0 && showTable && (
+            <div className="options-table">
+              <OptionsTable
+                data={data}
+                package={config.name}
+                updateConfig={this.updateConfig}
+                refreshDressDetails={() =>
+                  fetchDressDetails(config.name, (response) => {
+                    this.setState({ data: response.data.msg })
+                  })
+                }
+              />
+            </div>
+          )}
+        </div>
+      )
+    }
   }
 }
 

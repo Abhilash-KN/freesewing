@@ -61,3 +61,4 @@ packages/*/yarn.lock
 node_modules
 *dist*
 package-lock.json
+mainInterface/build
